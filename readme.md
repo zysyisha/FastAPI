@@ -429,5 +429,33 @@ python -m app.main
 | 第 7 步 | 怎么组装和启动？ |
 
 ---
+```text
+开发顺序（从底层到上层）：
 
+1.database.py     ← 基础设施（数据库连接）
+2.models.py       ← 数据模型（表结构）
+3.schemas.py      ← 数据验证（API契约）
+4.crud.py         ← 业务逻辑（CRUD操作）
+5.routers/*.py    ← API路由（接口暴露）
+6.main.py         ← 应用入口（组装启动）
+```
+```text
+调用顺序：
+
+用户请求
+    ↓
+main.py (注册路由)
+    ↓
+users.py (接收请求)
+    ↓ 验证数据
+schemas.py (Pydantic)
+    ↓ 传递已验证数据
+crud.py (业务逻辑)
+    ↓ 操作数据库
+models.py (ORM映射)
+    ↓ 执行SQL
+database.py (连接池/会话)
+    ↓
+数据库 (SQLite/PostgreSQL/MySQL)
+```
 **这就是从 0 到 1 的完整开发过程！每一步都清晰可循，照着这个顺序写，永远不会乱。** 🚀😊
