@@ -1,4 +1,11 @@
 ## 数据库操作  用python写sql
+# Service/CRUD 层
+# 作用：
+# 业务逻辑：协调Schema和Model
+# 数据库操作：增删改查的具体实现
+# 事务管理：commit/rollback控制
+
+# 注意：只有继承BaseModel才是pydantic模型，主要为了验证数据来的，而orm就是关联数据库，说白了就是python写sql！两者区分开
 
 from sqlalchemy.orm import Session
 from app import models, schemas
@@ -18,6 +25,17 @@ def get_users(db: Session, skip: int = 0, limit: int = 10):
 
 # 相当于写sql语句
 def create_user(db: Session, user: schemas.UserCreate):
+    # 检查唯一性
+    # existing = db.query(models.User).filter(
+    #     (models.User.username == user.username) |
+    #     (models.User.email == user.email)
+    # ).first()
+    # if existing:
+    #     raise HTTPException(400, "用户已存在")
+    #
+    # # 密码加密
+    # hashed = pwd_context.hash(user.password)
+
     db_user = models.User(
         username=user.username,
         email=user.email,

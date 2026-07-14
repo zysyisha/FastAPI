@@ -1,4 +1,8 @@
-## 数据库表结构
+## 数据库表结构 Model层 （SQLAlchemy ORM）
+# 作用：
+# 数据库映射：Python类 ↔ 数据库表
+# SQL生成：自动将Python操作转为SQL语句
+# 关系管理：处理表间关联关系
 
 from sqlalchemy import Column, Integer, String, DateTime, Float
 from sqlalchemy.sql import func
