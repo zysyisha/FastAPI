@@ -21,7 +21,7 @@ class UserCreate(BaseModel):  # post请求 BaseModel:数据验证、数据转换
 
 
 class UserUpdate(BaseModel):  # put请求
-    username: Optional[str] = None
+    username: Optional[str] = None # 可以是 str 或 None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
 
@@ -31,7 +31,7 @@ class UserResponse(BaseModel): # get请求
     email: str
     created_at: datetime
 
-    class Config:   # Pydantic V2
+    class Config:   # Pydantic V2 保底，处理各种来源数据
         from_attributes = True
 
 # ========== Product 相关 ==========
